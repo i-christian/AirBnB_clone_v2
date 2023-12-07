@@ -39,7 +39,7 @@ def do_deploy(archive_path):
 
     if put(archive_path, f"/tmp/{file}").failed is True:
         return False
-    if run(f"rm -rf /data/web_static/releases/{}/".
+    if run("rm -rf /data/web_static/releases/{}/".
            format(name)).failed is True:
         return False
     if run("mkdir -p /data/web_static/releases/{}/".
