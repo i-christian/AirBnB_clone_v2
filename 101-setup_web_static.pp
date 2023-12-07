@@ -14,7 +14,7 @@ $nginx_conf = "server {
     }
 
     location /redirect_me {
-        return 301 http://cuberule.com/;
+        return 301 http://google.com/;
     }
 
     error_page 404 /404.html;
@@ -51,7 +51,7 @@ file { '/data/web_static/shared':
 
 file { '/data/web_static/releases/test/index.html':
   ensure  => 'present',
-  content => "Holberton School Puppet\n"
+  content => "ALX online School\n"
 } ->
 
 file { '/data/web_static/current':
@@ -73,7 +73,7 @@ file { '/var/www/html':
 
 file { '/var/www/html/index.html':
   ensure  => 'present',
-  content => "Holberton School Nginx\n"
+  content => "ALX online School Nginx\n"
 } ->
 
 file { '/var/www/html/404.html':
