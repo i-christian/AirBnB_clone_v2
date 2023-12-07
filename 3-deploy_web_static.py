@@ -7,22 +7,18 @@ from fabric.api import local
 from fabric.api import put
 from fabric.api import run
 
-env.hosts = ["104.196.168.90", "35.196.46.172"]
+env.hosts = ["100.25.159.141", "54.172.178.214"]
 
 
 def do_pack():
     """Create a tar gzipped archive of the directory web_static."""
     dt = datetime.utcnow()
-    file = "versions/web_static_{}{}{}{}{}{}.tgz".format(dt.year,
-                                                         dt.month,
-                                                         dt.day,
-                                                         dt.hour,
-                                                         dt.minute,
-                                                         dt.second)
+    file = f"versions/web_static_{dt.year}{dt.month}{dt.day}{dt.hour}{dt.minute}{dt.second}.tgz"
+
     if os.path.isdir("versions") is False:
         if local("mkdir -p versions").failed is True:
             return None
-    if local("tar -cvzf {} web_static".format(file)).failed is True:
+    if local(f"tar -cvzf {file} web_static").failed is True:
         return None
     return file
 
@@ -41,9 +37,9 @@ def do_deploy(archive_path):
     file = archive_path.split("/")[-1]
     name = file.split(".")[0]
 
-    if put(archive_path, "/tmp/{}".format(file)).failed is True:
+    if put(archive_path, f"/tmp/{file}").failed is True:
         return False
-    if run("rm -rf /data/web_static/releases/{}/".
+    if run(f"rm -rf /data/web_static/releases/{}/".
            format(name)).failed is True:
         return False
     if run("mkdir -p /data/web_static/releases/{}/".
